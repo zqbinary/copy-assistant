@@ -1,5 +1,5 @@
 # copy-assistant
-用于复制增强
+chrome 扩展项目：用于复制增强
 
 # 功能
 * 复制link
