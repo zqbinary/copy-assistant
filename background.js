@@ -8,7 +8,7 @@ function createContextMenu() {
     chrome.contextMenus.create({
         id: 'copyHtml',
         title: '复制html',
-        contexts: ["selection"], // 仅在选中文本时显示菜单项
+        type: 'normal'
     });
     chrome.contextMenus.create({
         id: "copyImage",
