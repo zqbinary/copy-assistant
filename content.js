@@ -84,8 +84,47 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
     } else if (message.action === 'copyHtml') {
         copyHtml();
         sendResponse('received');
+    } else if (message.action === 'selectCss') {
+        sendResponse('received');
+        selectRange(message.value)
     }
 });
+// 在 content.js 中调用通知
+if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+}
+
+function showNotification(msg) {
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+    } else {
+        var notification = new Notification("copy-copy", {
+            body: msg,
+        });
+    }
+}
+
+
+function selectRange(selector) {
+    const selectedElement = document.querySelector(selector);
+
+    if (selectedElement) {
+        // 在需要的地方调用通知
+        return showNotification("非法CSS path");
+    }
+    // 创建 Range 对象
+    const range = document.createRange();
+
+    // 将 Range 设置为选定的区域
+    range.selectNodeContents(selectedElement);
+
+    // 获取当前选择对象并清除之前的选择
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+
+    // 将新的 Range 添加到选择对象中
+    selection.addRange(range);
+}
 
 // 复制 HTML
 function copyHtml() {
