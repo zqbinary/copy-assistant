@@ -5,14 +5,16 @@
   "description": "复制标题，复制图片，复制html",
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon16.png"
+    "default_icon": "icon16.png",
+    "default_title": "填写selector"
   },
   "permissions": [
     "clipboardWrite",
     "contextMenus",
     "tabs",
     "commands",
-    "notifications"
+    "notifications",
+    "storage"
   ],
   "background": {
     "service_worker": "background.js"
