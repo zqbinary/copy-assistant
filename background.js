@@ -8,7 +8,8 @@ function createContextMenu() {
     chrome.contextMenus.create({
         id: 'copyHtml',
         title: '复制html',
-        type: 'normal'
+        type: 'normal',
+        contexts: ["selection"]
     });
     chrome.contextMenus.create({
         id: "copyImage",
