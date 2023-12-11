@@ -1,33 +1,51 @@
-function sendMsg() {
-    let msg = document.querySelector("#value").value;
-    if (!msg) {
-        return
-    }
-    chrome.storage.sync.set({'qSelecor': msg}, () => {
-        chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
-            if (tabs.length === 0) return;
-            chrome.tabs.sendMessage(tabs[0].id, {action: 'selectCss', value: msg}, () => {
+function sendMessagePromise(action, value = '') {
+    return new Promise(async (resolve, reject) => {
+        let tabs = await chrome.tabs.query({currentWindow: true, active: true});
 
-            });
+        chrome.tabs.sendMessage(tabs[0].id, {action, value}, (response) => {
+            if (response) {
+                resolve(response)
+            } else {
+                reject(response)
+            }
         });
     })
 }
 
-document.querySelector('#btn').addEventListener('click', async (m) => {
-    sendMsg()
-})
+async function sendSelector() {
+    let msg = document.querySelector("#value").value;
+    if (!msg) {
+        return
+    }
+    let keyName = await getKey()
+    await chrome.storage.sync.set({[keyName]: msg})
+    let res = await sendMessagePromise('selectCss', msg)
+    console.log('send selector success', res)
+}
+
+async function getKey() {
+    return await sendMessagePromise('getHost')
+}
+
 document.querySelector('form').addEventListener('submit', async (m) => {
-    sendMsg()
+    m.preventDefault()
+    try {
+        await sendSelector()
+    } catch (e) {
+        console.log('form submit error', e)
+    }
 })
+
+
 // 等待页面加载完成后执行代码
-document.addEventListener('DOMContentLoaded', function () {
-    chrome.storage.sync.get('qSelecor', data => {
-        let res = data['qSelecor']
-        console.log('iii', data, res)
-        if (data && res) {
-            document.querySelector('#value').value = res;
-        } else {
-            document.querySelector('#value').value = '';
-        }
-    })
+document.addEventListener('DOMContentLoaded', async function () {
+    let keyName = await getKey()
+    const data = await chrome.storage.sync.get(keyName)
+    let res = data[keyName]
+    console.log('get key', keyName, data, res)
+    if (data && res) {
+        document.querySelector('#value').value = res;
+    } else {
+        document.querySelector('#value').value = '';
+    }
 });

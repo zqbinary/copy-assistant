@@ -87,6 +87,8 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
     } else if (message.action === 'selectCss') {
         selectRange(message.value)
         sendResponse('received');
+    } else if (message.action === 'getHost') {
+        sendResponse(window.location.host)
     }
 });
 
