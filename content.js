@@ -128,15 +128,7 @@ function copyHtml() {
         const selectedHTML = window.getSelection().getRangeAt(0).cloneContents();
         const tempDiv = document.createElement('div');
         tempDiv.appendChild(selectedHTML.cloneNode(true));
-
-        navigator.clipboard.writeText(tempDiv.innerHTML)
-            .then(() => {
-                console.log('HTML 已成功复制到剪贴板');
-                sendText(tempDiv.innerHTML);
-            })
-            .catch((error) => {
-                console.error('复制 HTML 到剪贴板失败:', error);
-            });
+        sendText(tempDiv.innerHTML);
     }
 }
 

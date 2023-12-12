@@ -36,6 +36,15 @@ document.querySelector('form').addEventListener('submit', async (m) => {
     }
 })
 
+document.querySelector('#copy').addEventListener('click', async (m) => {
+    m.preventDefault()
+    try {
+        await sendSelector()
+        await sendMessagePromise('copyHtml')
+    } catch (e) {
+        console.log('form submit error', e)
+    }
+})
 
 // 等待页面加载完成后执行代码
 document.addEventListener('DOMContentLoaded', async function () {
