@@ -139,6 +139,14 @@ function sendText(text) {
     data.append('data', text);
     data.append('location', JSON.stringify(document.location));
 
+    xhr.timeout = 5000; // 设置超时时间，单位为毫秒
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status !== 200) {
+                showNotification("服务器错误，status:" + xhr.status);
+            }
+        }
+    };
     xhr.open('POST', 'http://localhost:7826/html', true);
     xhr.send(data);
 }
