@@ -137,6 +137,7 @@ function sendText(text) {
     const xhr = new XMLHttpRequest();
     const data = new FormData();
     data.append('data', text);
+    document.location.title = document.title;
     data.append('location', JSON.stringify(document.location));
 
     xhr.timeout = 5000; // 设置超时时间，单位为毫秒

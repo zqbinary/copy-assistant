@@ -4,8 +4,8 @@
   "version": "1.2",
   "description": "复制标题，复制图片，复制html",
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": "icon16.png",
+    "default_popup": "popup/popup.html",
+    "default_icon": "static/img/icon16.png",
     "default_title": "填写selector"
   },
   "permissions": [
@@ -39,8 +39,8 @@
     }
   },
   "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
+    "16": "static/img/icon16.png",
+    "48": "static/img/icon48.png",
+    "128": "static/img/icon128.png"
   }
 }
