@@ -143,8 +143,12 @@ function sendText(text) {
     xhr.timeout = 5000; // 设置超时时间，单位为毫秒
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status !== 200) {
+            if (xhr.status === 0)
+                showNotification("服务器无响应")
+            else if (xhr.status >= 400) {
                 showNotification("服务器错误，status:" + xhr.status);
+            } else {
+                showNotification("服务器处理成功");
             }
         }
     };
