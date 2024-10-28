@@ -55,6 +55,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (data && res) {
         document.querySelector('#value').value = res;
     } else {
-        document.querySelector('#value').value = '';
+        document.querySelector('#value').value = 'article';
     }
 });
